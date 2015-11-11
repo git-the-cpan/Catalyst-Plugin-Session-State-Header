@@ -6,7 +6,7 @@ extends 'Catalyst::Plugin::Session::State';
 use MRO::Compat;
 use Catalyst::Utils ();
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 sub extend_session_id {
     my ( $c, $sid, $expires ) = @_;
@@ -52,10 +52,11 @@ sub delete_session_id {
 sub uni_path {
     my ($path) = @_;
 
-    return '' unless $path;
+    return '/' unless $path;
     $path =~ s|\/{2,}|/|gs;
     $path =~ s|^\/+||s;
     $path =~ s|\/+$||s;
+    return '/' unless $path;
     $path = '/' . $path . '/';
     return $path;
 }
